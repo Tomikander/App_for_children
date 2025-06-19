@@ -1,8 +1,5 @@
-body {
-  background-color: aqua;
-}
-
 .container {
+    background-color:rgba(18, 129, 133, 0.534);
     max-width: 700px;
     margin: 0 auto;
     padding: 20px;
