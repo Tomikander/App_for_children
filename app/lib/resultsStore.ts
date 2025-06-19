@@ -6,7 +6,7 @@ interface ResultsState {
 }
 
 export const useResultsStore = create<ResultsState>((set) => ({
-  resultsAmountToGenerate: 1, 
+  resultsAmountToGenerate: 0, 
 
   setResultsAmountToGenerate: (amount: number) =>
     set({ resultsAmountToGenerate: amount }),
