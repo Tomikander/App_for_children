@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface ResultsState {
-  resultsAmountToGenerate: number; // number of results
-  setResultsAmountToGenerate: (amount: number) => void; // refresh function
+  resultsAmountToGenerate: number; 
+  setResultsAmountToGenerate: (amount: number) => void; 
 }
 
 export const useResultsStore = create<ResultsState>((set) => ({

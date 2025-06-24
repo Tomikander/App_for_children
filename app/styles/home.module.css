@@ -11,7 +11,7 @@
     margin-bottom: 20px;
   }
   
-  .generateButton {
+  .buttonGenerate {
     padding: 10px 20px;
     margin-top: 10px;
     background-color: green;
@@ -30,7 +30,7 @@
     min-height: 100px;
   }
   
-  .copyButton {
+  .buttonCopy{
     position: absolute;
     top: 10px;
     right: 10px;
