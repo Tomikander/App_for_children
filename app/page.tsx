@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.css";
 import { useResultsStore } from "@/app/lib/resultsStore";
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const {resultsAmountToGenerate, setResultsAmountToGenerate } = useResultsStore();
 
 const generateResults = () => {
@@ -17,16 +18,17 @@ const generateResults = () => {
 };
 
 const copyToClipboard = () => {
-  const allResults = results.join("\n")
-    navigator.clipboard.writeText(allResults)
+  if (resultsRef.current) {
+    const html = resultsRef.current.innerHTML;
+    navigator.clipboard.writeText(html)
     .then(() => console.log("HTML copied!"))
     .catch((err) => console.log("Copy failed:", err));
-    alert("copy");
+  }
 };
 
-const handleResultsAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleResultsAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   setResultsAmountToGenerate(Number(e.target.value));
-};
+  };
 
   return (
     <div className={styles.container}>
@@ -45,20 +47,17 @@ const handleResultsAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       <button className={styles.buttonGenerate} onClick={generateResults}>
         Generate
       </button>
-      {results.map((text, index) => (
-        <p key={index}>{text}</p>
-      ))}
-        {results.map((text, index) => (
-          <div key={index} className={styles.resultsRow}>
-            <p>{text}</p>
-            <button 
-              className={styles.buttonCopy}
-              onClick={() => copyToClipboard()}
-            >
-              Copy
-            </button>
-          </div>
+      <div ref={resultsRef}>
+        {results.map((text, i) => (
+          <p key={i}>{text}</p>
         ))}
+      </div>
+        <button 
+          className={styles.buttonCopy}
+          onClick={() => copyToClipboard()}
+        >
+          Copy
+        </button>
     </div>
  )
 };
