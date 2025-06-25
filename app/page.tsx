@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import styles from "@/app/styles/home.module.css";
+import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
 
 export default function Home() {
