@@ -4,9 +4,20 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prepare": "husky install",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{scss,css}": [
+      "stylelint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "next": "15.3.3",
@@ -19,8 +30,14 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^9.29.0",
     "eslint-config-next": "15.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.1",
+    "stylelint": "^16.21.0",
+    "stylelint-config-standard-scss": "^15.0.1",
+    "stylelint-scss": "^6.12.1",
     "typescript": "^5"
   }
 }
