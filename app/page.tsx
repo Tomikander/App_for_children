@@ -39,8 +39,8 @@ const copyToClipboard = () => {
       <input 
         type="range" 
         id="range"
-        min={1} 
-        max={500} 
+        min={0} 
+        max={100} 
         value={resultsAmountToGenerate} 
         onChange={handleResultsAmountChange}
       />
