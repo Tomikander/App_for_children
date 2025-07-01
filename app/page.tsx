@@ -3,6 +3,12 @@
 import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Slider from "@mui/material/Slider";
+import { InputLabel } from "@mui/material";
+
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
@@ -26,38 +32,40 @@ const copyToClipboard = () => {
   }
 };
 
-  const handleResultsAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setResultsAmountToGenerate(Number(e.target.value));
-  };
+const handleSliderChange = (_event: Event, value: number | number[]) => {
+  if (typeof value === "number") {
+    setResultsAmountToGenerate(value);
+  }
+};
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Home page</h1>
-      <label htmlFor="range">
+    <Box className={styles.container}>
+      <Typography variant="h1" className={styles.title}>Home page</Typography>
+      <InputLabel shrink htmlFor="range">
         How many results to generate: {resultsAmountToGenerate}
-      </label>
-      <input 
-        type="range" 
+      </InputLabel>
+      <Slider 
         id="range"
         min={1} 
         max={500} 
         value={resultsAmountToGenerate} 
-        onChange={handleResultsAmountChange}
+        onChange={handleSliderChange}
+          valueLabelDisplay="auto"
       />
-      <button className={styles.buttonGenerate} onClick={generateResults}>
+      <Button className={styles.buttonGenerate} onClick={generateResults}>
         Generate
-      </button>
-      <div ref={resultsRef}>
+      </Button>
+      <Box ref={resultsRef}>
         {results.map((text, i) => (
-          <p key={i}>{text}</p>
+          <Typography key={i}>{text}</Typography>
         ))}
-      </div>
-        <button 
+      </Box>
+        <Button 
           className={styles.buttonCopy}
           onClick={() => copyToClipboard()}
         >
           Copy
-        </button>
-    </div>
+        </Button>
+    </Box>
  )
 };
