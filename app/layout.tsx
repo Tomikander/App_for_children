@@ -13,8 +13,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Math app for kids",
-  description: "app for kids",
+  title: 'Math app for kids',
+  description: 'app for kids',
 };
 
 export default function RootLayout(props: PropsWithChildren) {

@@ -1,16 +1,16 @@
 .container {
-  background-color:rgba(18, 129, 133, 0.534);
+  background-color: rgba(18, 129, 133, 0.534);
   max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
-  
+
 .title {
   font-size: 28px;
   margin-bottom: 20px;
 }
-  
+
 .button {
   &Generate {
     padding: 10px 20px;
@@ -22,7 +22,7 @@
     cursor: pointer;
   }
 
-   &Copy {
+  &Copy {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -43,8 +43,7 @@
   background-color: #f8f8f8;
   min-height: 100px;
 }
-  
+
 .resultBox {
   white-space: pre-wrap;
 }
-  
