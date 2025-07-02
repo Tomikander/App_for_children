@@ -1,33 +1,37 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import styles from "@/app/styles/home.module.scss";
-import { useResultsStore } from "@/app/lib/resultsStore";
+import { useRef, useState } from 'react';
+import styles from '@/app/styles/home.module.scss';
+import { useResultsStore } from '@/app/lib/resultsStore';
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const {resultsAmountToGenerate, setResultsAmountToGenerate } = useResultsStore();
+  const { resultsAmountToGenerate, setResultsAmountToGenerate } =
+    useResultsStore();
 
-const generateResults = () => {
-  const generated = [];
-  for (let i = 1; i <= resultsAmountToGenerate; i++) {
-    generated.push(`Results ${i}`)
-  }
-  setResults(generated);
-};
+  const generateResults = () => {
+    const generated = [];
+    for (let i = 1; i <= resultsAmountToGenerate; i++) {
+      generated.push(`Results ${i}`);
+    }
+    setResults(generated);
+  };
 
-const copyToClipboard = () => {
-  if (resultsRef.current) {
-    const html = resultsRef.current.innerHTML;
-    navigator.clipboard.writeText(html)
-    .then(() => console.log("HTML copied!"))
-    .catch((err) => console.log("Copy failed:", err));
-  }
-};
+  const copyToClipboard = () => {
+    if (resultsRef.current) {
+      const html = resultsRef.current.innerHTML;
+      navigator.clipboard
+        .writeText(html)
+        .then(() => console.log('HTML copied!'))
+        .catch((err) => console.log('Copy failed:', err));
+    }
+  };
 
-  const handleResultsAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setResultsAmountToGenerate(Number(e.target.value));
+  const handleResultsAmountChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setResultsAmountToGenerate(Number(e.target.value));
   };
 
   return (
@@ -36,12 +40,12 @@ const copyToClipboard = () => {
       <label htmlFor="range">
         How many results to generate: {resultsAmountToGenerate}
       </label>
-      <input 
-        type="range" 
+      <input
+        type="range"
         id="range"
-        min={1} 
-        max={500} 
-        value={resultsAmountToGenerate} 
+        min={1}
+        max={500}
+        value={resultsAmountToGenerate}
         onChange={handleResultsAmountChange}
       />
       <button className={styles.buttonGenerate} onClick={generateResults}>
@@ -52,12 +56,9 @@ const copyToClipboard = () => {
           <p key={i}>{text}</p>
         ))}
       </div>
-        <button 
-          className={styles.buttonCopy}
-          onClick={() => copyToClipboard()}
-        >
-          Copy
-        </button>
+      <button className={styles.buttonCopy} onClick={() => copyToClipboard()}>
+        Copy
+      </button>
     </div>
- )
-};
+  );
+}
