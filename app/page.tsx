@@ -39,7 +39,7 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
     <Box className={styles.container}>
       <Typography variant="h1" className={styles.title}>Home page</Typography>
       <InputLabel shrink htmlFor="range">
-        How many results to generate: {resultsAmountToGenerat}
+        How many results to generate: {resultsAmountToGenerate}
        </InputLabel>
       <Slider 
         id="range"
