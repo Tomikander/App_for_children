@@ -28,7 +28,6 @@ export default function Home() {
     }
   };
 
-
 const handleSliderChange = (_event: Event, value: number | number[]) => {
   if (typeof value === "number") {
     setResultsAmountToGenerate(value);
