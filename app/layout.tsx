@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 import  "./styles/home.module.scss";
 
 const roboto = Roboto({
-  weight: ["300", "400", "500", "700"],
+  weight: ["500", "400", "500", "700"],
   subsets: ['latin'],
   display: 'swap',
   variable: "--font-roboto",
