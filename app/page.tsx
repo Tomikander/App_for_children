@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
-import { InputLabel, Box, Typography, Button, Slider } from "@mui/material";
+import { Box, Typography, Button, Slider } from "@mui/material";
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
@@ -34,35 +34,47 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
   }
 };
 
- return (
-    <Box className={styles.container}>
-      <Typography variant="h1" className={styles.title}>Home page</Typography>
-      <InputLabel shrink htmlFor="range">
-        How many results to generate: {resultsAmountToGenerate}
-       </InputLabel>
-      <Slider 
-        id="range"
-        min={1} 
-        max={500} 
-        value={resultsAmountToGenerate} 
-        onChange={handleSliderChange}
-          valueLabelDisplay="auto"
-      />
-      <Button className={styles.buttonGenerate} onClick={generateResults}>
-        Generate
-      </Button>
+return (
+  <Box className={styles.container}>
+    <Button 
+      className={styles.buttonCopy}
+      onClick={() => copyToClipboard()}
+     >
+      Copy
+    </Button>
+    <Typography 
+      variant="h1" 
+      className={styles.title}
+     >
+      Home page
+    </Typography>
+    <Typography variant="body1" sx={{ mt: 2 }}>
+      How many results to generate: {resultsAmountToGenerate}
+    </Typography>
+    <Slider 
+      id="range"
+      min={1} 
+      max={500} 
+      value={resultsAmountToGenerate} 
+      onChange={handleSliderChange}
+        valueLabelDisplay="auto"
+       />
+    <Button 
+      className={styles.buttonGenerate} 
+      onClick={generateResults}
+      sx={{ 
+        fontSize: {xs: "0.8rem,", sm: "1rem"}, 
+        minWidth: { xs: '100px', sm: '120px' }
+      }}
+       >
+       Generate
+    </Button>
       <Box ref={resultsRef}>
-        {results.map((text, i) => (
-          <Typography key={i}>{text}</Typography>
-        ))}
-     </Box>
-        <Button 
-          className={styles.buttonCopy}
-          onClick={() => copyToClipboard()}
-        >
-          Copy
-        </Button>
-    </Box>
+       {results.map((text, i) => (
+        <Typography key={i}>{text}</Typography>
+       ))}
+      </Box>
+   </Box>
  )
 };
 
