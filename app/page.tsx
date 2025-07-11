@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Box, Typography, Button, Slider } from "@mui/material";
 
 export default function Home() {
@@ -34,20 +35,15 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
   }
 };
 
-return (
+ return (
   <Box className={styles.container}>
-    <Button 
-      className={styles.buttonCopy}
-      onClick={() => copyToClipboard()}
-     >
-      Copy
-    </Button>
-    <Typography 
-      variant="h1" 
-      className={styles.title}
-     >
-      Home page
-    </Typography>
+    <Box className={styles.header}>
+    <Typography variant="h1" className={styles.title}>Home page</Typography>
+     <Button 
+       className={styles.buttonCopy}
+       onClick={() => copyToClipboard()}
+      > <ContentCopyIcon /> </Button>
+     </Box>
     <Typography variant="body1" sx={{ mt: 2 }}>
       How many results to generate: {resultsAmountToGenerate}
     </Typography>
@@ -58,7 +54,7 @@ return (
       value={resultsAmountToGenerate} 
       onChange={handleSliderChange}
         valueLabelDisplay="auto"
-       />
+     />
     <Button 
       className={styles.buttonGenerate} 
       onClick={generateResults}
