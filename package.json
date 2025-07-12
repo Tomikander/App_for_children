@@ -9,7 +9,10 @@
     "dev": "next dev --turbopack",
     "prepare": "husky install",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "tsc": "tsc",
+    "tsc: watch": "tsc -w",
+    "tsc:check": "tsc --noEmit"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
