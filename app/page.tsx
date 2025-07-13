@@ -4,12 +4,13 @@ import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box, Typography, Button, Slider } from "@mui/material";
+import { Box, Typography, Button, Slider, Select, MenuItem } from "@mui/material";
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
   const { resultsAmountToGenerate, setResultsAmountToGenerate } = useResultsStore();
+  const [ selectedAction, setSelectedAction] = useState<string>("");
 
   const generateResults = () => {
     const generated = [];
@@ -29,11 +30,13 @@ export default function Home() {
     }
   };
 
-const handleSliderChange = (_event: Event, value: number | number[]) => {
-  if (typeof value === "number") {
-    setResultsAmountToGenerate(value);
-  }
-};
+  const handlyApplyAction = () => {
+    if (selectedAction === "copy") {
+      copyToClipboard();
+    } else if (selectedAction === "clear") {
+      setResults([]);
+    }
+  };
 
  return (
   <Box className={styles.container}>
@@ -52,8 +55,12 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
       min={1} 
       max={500} 
       value={resultsAmountToGenerate} 
-      onChange={handleSliderChange}
-        valueLabelDisplay="auto"
+      onChange={(_e, val) => {
+        if (typeof val === "number") {
+          setResultsAmountToGenerate(val);
+        }
+      }}
+      valueLabelDisplay="auto"
      />
     <Button 
       className={styles.buttonGenerate} 
@@ -65,11 +72,31 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
        >
        Generate
     </Button>
-      <Box ref={resultsRef}>
-       {results.map((text, i) => (
-        <Typography key={i}>{text}</Typography>
-       ))}
-      </Box>
+    <Box className={styles.settingsBlock}>
+      <Typography variant="h6">Setting</Typography>
+      <Typography variant="body2">Customizations are still in development...</Typography>
+    </Box>
+    <Select 
+     value={selectedAction} 
+     onChange={(e) => setSelectedAction(e.target.value)} 
+     displayEmpty sx={{mb: 2}}
+    >
+     <MenuItem value="" disabled>Select an action</MenuItem>
+     <MenuItem value="copy">opyToClipboard</MenuItem>
+     <MenuItem value="clear">Clear Results</MenuItem>
+    </Select>
+    <Button 
+     variant="outlined"  
+     onClick={handlyApplyAction} 
+     sx={{mt: 1}} 
+    >
+      Apply action
+    </Button>
+    <Box ref={resultsRef}>
+      {results.map((text, i) => (
+      <Typography key={i}>{text}</Typography>
+      ))}
+    </Box>
    </Box>
  )
 };
