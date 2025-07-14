@@ -4,12 +4,14 @@ import { useRef, useState } from "react";
 import styles from "@/app/styles/home.module.scss";
 import { useResultsStore } from "@/app/lib/resultsStore";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box, Typography, Button, Slider } from "@mui/material";
+import { Box, Typography, Button, Slider, IconButton } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
   const { resultsAmountToGenerate, setResultsAmountToGenerate } = useResultsStore();
+
 
   const generateResults = () => {
     const generated = [];
@@ -33,6 +35,10 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
   if (typeof value === "number") {
     setResultsAmountToGenerate(value);
   }
+};
+
+const clearResults = () => {
+  setResults([]);
 };
 
  return (
@@ -59,12 +65,18 @@ const handleSliderChange = (_event: Event, value: number | number[]) => {
       className={styles.buttonGenerate} 
       onClick={generateResults}
       sx={{ 
-        fontSize: {xs: "0.8rem,", sm: "1rem"}, 
+        fontSize: {xs: "0.8rem", sm: "1rem"}, 
         minWidth: { xs: '100px', sm: '120px' }
       }}
        >
        Generate
     </Button>
+      <IconButton 
+        onClick={clearResults} 
+        sx={{ color: "red", ml: 2 }} 
+       >
+        <ClearIcon />
+      </IconButton>
       <Box ref={resultsRef}>
        {results.map((text, i) => (
         <Typography key={i}>{text}</Typography>
