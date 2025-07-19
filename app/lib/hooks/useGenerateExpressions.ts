@@ -6,10 +6,9 @@ export const useGenerateExpressions = () => {
 	const { maxAdditionSum } = useMaxNumber();
 	const { resultsAmountToGenerate } = useResultsAmount();
 	
-
-	const generate = () => {
-		return generateAdditionExpressions(maxAdditionSum, resultsAmountToGenerate);
+  const generate = () => {
+	 return generateAdditionExpressions(maxAdditionSum, resultsAmountToGenerate);
 	};
 
-	return { generate };
+  return { generate };
 };

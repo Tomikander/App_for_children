@@ -3,24 +3,18 @@ import { isSumWhithinLimit } from "../utils/isSumWithinLimit";
 import { formatExpression } from "../utils/formatExpression";
 
 export function generateAdditionExpressions(maxSum: number, count: number): string[] {
-  const expressions: string[] = [];
-  let attempts = 0;
   const maxAttempts = count * 20;
 
-  while (expressions.length < count && attempts < maxAttempts) {
+  const validExpressions = Array.from({ length: maxAttempts }, () => {
     const a = getRandomInt(0, maxSum);
     const b = getRandomInt(0, maxSum);
+    return isSumWhithinLimit(a, b, maxSum) ? formatExpression(a, b) : null;
+  }).filter((expr): expr is string => expr !== null);
 
-    if (isSumWhithinLimit(a, b, maxSum)) {
-      expressions.push(formatExpression(a, b));
-    }
+  const paddedExpressions = [
+    ...validExpressions.slice(0, count),
+    ...Array.from({ length: Math.max(0, count - validExpressions.length) }, () => 'Unavailable: amount limit exceeded')
+  ];
 
-    attempts++;
-  }
-
-  while (expressions.length < count) {
-    expressions.push('Unavailable: amount limit exceeded')
-  }
-
-  return expressions;
+  return paddedExpressions;
 }
