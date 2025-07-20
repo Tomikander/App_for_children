@@ -1,15 +1,23 @@
 import { create } from 'zustand';
+import { DEFAULT_RESULTS_AMOUNT } from '@/app/constants/sliderlimits';
 
-interface ResultsState {
+interface ResultsSlice {
   resultsAmountToGenerate: number;
-  selectedAction: string;
   setResultsAmountToGenerate: (amount: number) => void;
+}
+
+interface ActionSlice {
+  selectedAction: string;
   setSelectedAction: (action: string) => void;
 }
 
-export const useResultsStore = create<ResultsState>((set) => ({
-  resultsAmountToGenerate: 100,
-  selectedAction: "",
-  setResultsAmountToGenerate: (amount) => set({resultsAmountToGenerate: amount }),
-  setSelectedAction: (action) => set({ selectedAction: action })
+type StoreState = ResultsSlice & ActionSlice;
+
+export const useStore = create<StoreState>((set) => ({
+  resultsAmountToGenerate: DEFAULT_RESULTS_AMOUNT,
+  setResultsAmountToGenerate: (amount) =>
+    set({ resultsAmountToGenerate: amount }),
+
+  selectedAction: '',
+  setSelectedAction: (action) => set({ selectedAction: action }),
 }));
