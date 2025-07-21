@@ -1,8 +1,11 @@
-import { getRandomInt } from "../utils/getRandomInt";
-import { isSumWhithinLimit } from "../utils/isSumWithinLimit";
-import { formatExpression } from "../utils/formatExpression";
+import { getRandomInt } from '../utils/getRandomInt';
+import { isSumWhithinLimit } from '../utils/isSumWithinLimit';
+import { formatExpression } from '../utils/formatExpression';
 
-export function generateAdditionExpressions(maxSum: number, count: number): string[] {
+export function generateAdditionExpressions(
+  maxSum: number,
+  count: number
+): string[] {
   const maxAttempts = count * 20;
 
   const validExpressions = Array.from({ length: maxAttempts }, () => {
@@ -13,7 +16,10 @@ export function generateAdditionExpressions(maxSum: number, count: number): stri
 
   const paddedExpressions = [
     ...validExpressions.slice(0, count),
-    ...Array.from({ length: Math.max(0, count - validExpressions.length) }, () => 'Unavailable: amount limit exceeded')
+    ...Array.from(
+      { length: Math.max(0, count - validExpressions.length) },
+      () => 'Unavailable: amount limit exceeded'
+    ),
   ];
 
   return paddedExpressions;
