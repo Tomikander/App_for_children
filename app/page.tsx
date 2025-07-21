@@ -1,5 +1,6 @@
 'use client';
 
+
 import { useRef, useState } from 'react';
 import styles from '@/app/styles/home.module.scss';
 import { useStore } from '@/app/lib/resultsStore';
@@ -11,9 +12,11 @@ import {
   Slider,
   Select,
   MenuItem,
+  IconButton
 } from '@mui/material';
 import { ActionType } from '@/app/enums/actionType';
 import { SLIDER_MAX, SLIDER_MIN } from '@/app/constants/sliderlimits';
+import ClearIcon from "@mui/icons-material/Clear";
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
@@ -24,6 +27,7 @@ export default function Home() {
     selectedAction,
     setSelectedAction,
   } = useStore();
+
 
   const generateResults = () => {
     const generated = [];
@@ -54,6 +58,9 @@ export default function Home() {
   const actionLabels: Record<ActionType, string> = {
     [ActionType.COPY]: 'CopyToClipboard',
     [ActionType.CLEAR]: 'Clear Results',
+  };
+   const clearResults = () => {
+  setResults([]);
   };
 
   return (
@@ -118,6 +125,12 @@ export default function Home() {
       <Button variant="outlined" onClick={handleApplyAction} sx={{ mt: 1 }}>
         Apply action
       </Button>
+      <IconButton 
+        onClick={clearResults} 
+        sx={{ color: "red", ml: 2 }} 
+       >
+        <ClearIcon />
+      </IconButton>
       <Box ref={resultsRef}>
         {results.map((text, i) => (
           <Typography key={i}>{text}</Typography>
