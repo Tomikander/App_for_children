@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import { useSettingsStore } from '@/app/lib/settingsStore/settingsStore';
 import { useState } from 'react';
+import { MAX_ALLOWED_AMOUNT } from '@/app/constants/sliderlimits';
 
 const MaxNumberInput = () => {
   const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
@@ -14,7 +15,7 @@ const MaxNumberInput = () => {
     }
 
     const num = Number(value);
-    if (num > 1000) {
+    if (num > MAX_ALLOWED_AMOUNT) {
       setError('Number too high (max. 1000)');
       return;
     }
