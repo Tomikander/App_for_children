@@ -1,14 +1,14 @@
-import { generateAdditionExpressions } from "../helpers/generateExpressions";
-import { useMaxNumber } from "./useMaxNumber";
-import { useResultsAmount } from "./useResultsAmount";
+import { generateAdditionExpressions } from '../helpers/generateExpressions';
+import { useMaxNumber } from './useMaxNumber';
+import { useResultsAmount } from './useResultsAmount';
 
 export const useGenerateExpressions = () => {
-	const { maxAdditionSum } = useMaxNumber();
-	const { resultsAmountToGenerate } = useResultsAmount();
-	
-  const generate = () => {
-	 return generateAdditionExpressions(maxAdditionSum, resultsAmountToGenerate);
-	};
+  const { maxAdditionSum } = useMaxNumber();
+  const { resultsAmountToGenerate } = useResultsAmount();
 
-  return { generate };
+  const createMathTasks = () => {
+    return generateAdditionExpressions(maxAdditionSum, resultsAmountToGenerate);
+  };
+
+  return { createMathTasks };
 };
