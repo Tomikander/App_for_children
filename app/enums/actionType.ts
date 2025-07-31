@@ -1,5 +1,6 @@
 export enum ActionType {
   COPY = 'copy',
   CLEAR = 'clear',
-  GENERATE = 'GENERATE',
+  GENERATE = 'generate',
+  SETTINGS = 'settings',
 }
