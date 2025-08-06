@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import { settingsBlockStyles } from '@/app/styles/home.styles';
-import { ActionType } from '@/app/enums/actionType';
-import styles from '@/app/styles/home.module.scss';
+import { ActionType } from '@/enums/actionType';
+import styles from '@/styles/blocks.module.scss';
 
 export const SettingsBlock = () => (
-  <Box className={styles.settingsBlock} sx={settingsBlockStyles}>
+  <Box className={styles.settingsBlock}>
     <Typography variant="h6">{ActionType.SETTINGS}</Typography>
     <Typography variant="body2">
       Customizations are still in development...

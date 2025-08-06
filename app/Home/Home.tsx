@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { useStore } from '@/app/lib/resultsStore';
-import styles from '@/app/styles/home.module.scss';
+import { useStore } from '@/lib/resultsStore';
+import layout from '@/styles/layout.module.scss';
 import { Box } from '@mui/material';
 import { Header } from './Header';
 import { SliderControl } from './SliderControl';
@@ -48,13 +48,17 @@ export default function Home() {
   };
 
   return (
-    <Box className={styles.container}>
+    <Box className={layout.container}>
       <Header onClear={handleClearResults} />
       <SliderControl
         value={resultsAmountToGenerate}
         onChange={handleSliderChange}
       />
-      <ActionButtons onGenerate={generateResults} onCopy={copyToClipboard} />
+      <ActionButtons
+        onGenerate={generateResults}
+        onCopy={copyToClipboard}
+        onClear={handleClearResults}
+      />
       <SettingsBlock />
       <ResultsList results={results} resultsRef={resultsRef} />
     </Box>

@@ -1,32 +1,39 @@
 import { Button, Box } from '@mui/material';
-import {
-  generateButtonStyles,
-  copyButtonStyles,
-  buttonContainerStyles,
-} from '@/app/styles/home.styles';
-import { ActionType } from '@/app/enums/actionType';
-import styles from '@/app/styles/home.module.scss';
+import { ActionType } from '@/enums/actionType';
+import styles from '@/styles/buttons.module.scss';
 
 interface ActionButtonsProps {
   onGenerate: () => void;
   onCopy: () => void;
+  onClear: () => void;
 }
 
 export const ActionButtons: React.FC<ActionButtonsProps> = ({
   onGenerate,
   onCopy,
+  onClear,
 }) => (
-  <Box sx={buttonContainerStyles}>
+  <Box className={styles.buttonContainer}>
     <Button
-      className={styles.buttonGenerate}
+      className={`${styles.button} ${styles['button--generate']}`}
       variant="outlined"
       onClick={onGenerate}
-      sx={generateButtonStyles}
     >
       {ActionType.GENERATE}
     </Button>
-    <Button variant="outlined" onClick={onCopy} sx={copyButtonStyles}>
+    <Button
+      className={`${styles.button} ${styles['button--copy']}`}
+      variant="outlined"
+      onClick={onCopy}
+    >
       {ActionType.COPY}
+    </Button>
+    <Button
+      className={`${styles.button} ${styles['button--clear']}`}
+      variant="outlined"
+      onClick={onClear}
+    >
+      {ActionType.CLEAR}
     </Button>
   </Box>
 );

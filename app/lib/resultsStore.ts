@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { DEFAULT_RESULTS_AMOUNT } from '@/app/constants/sliderlimits';
+import { DEFAULT_RESULTS_AMOUNT } from '@/constants/sliderlimits';
 
 interface ResultsSlice {
   resultsAmountToGenerate: number;

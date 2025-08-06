@@ -1,6 +1,6 @@
 import { Typography, Slider } from '@mui/material';
-import { SLIDER_MIN, SLIDER_MAX } from '@/app/constants/sliderlimits';
-import { bodyTextStyles } from '@/app/styles/home.styles';
+import { SLIDER_MIN, SLIDER_MAX } from '@/constants/sliderlimits';
+import styles from '@/styles/blocks.module.scss';
 
 interface SliderControlProps {
   value: number;
@@ -12,7 +12,7 @@ export const SliderControl: React.FC<SliderControlProps> = ({
   onChange,
 }) => (
   <>
-    <Typography variant="body1" sx={bodyTextStyles}>
+    <Typography variant="body1" className={styles.bodyText}>
       How many results to generate: {value}
     </Typography>
     <Slider
