@@ -23,7 +23,7 @@ export default function Home() {
     setResults(generated);
   };
 
-  const handleClearResults = () => {
+  const clearResults = () => {
     setResults([]);
   };
 
@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <Box className={layout.container}>
-      <Header onClear={handleClearResults} />
+      <Header onClear={clearResults} />
       <SliderControl
         value={resultsAmountToGenerate}
         onChange={handleSliderChange}
@@ -57,7 +57,7 @@ export default function Home() {
       <ActionButtons
         onGenerate={generateResults}
         onCopy={copyToClipboard}
-        onClear={handleClearResults}
+        onClear={clearResults}
       />
       <SettingsBlock />
       <ResultsList results={results} resultsRef={resultsRef} />
