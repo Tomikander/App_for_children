@@ -1,6 +1,8 @@
 import { Button, Box } from '@mui/material';
 import { ActionType } from '@/enums/actionType';
 import styles from '@/styles/buttons.module.scss';
+import ContentCopy from '@mui/icons-material/ContentCopy';
+import ClearIcon from '@mui/icons-material/Clear';
 
 interface ActionButtonsProps {
   onGenerate: () => void;
@@ -26,14 +28,14 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
       variant="outlined"
       onClick={onCopy}
     >
-      {ActionType.COPY}
+      <ContentCopy />
     </Button>
     <Button
       className={`${styles.button} ${styles['button--clear']}`}
       variant="outlined"
       onClick={onClear}
     >
-      {ActionType.CLEAR}
+      <ClearIcon />
     </Button>
   </Box>
 );
