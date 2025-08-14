@@ -1,0 +1,46 @@
+.settingsBlock {
+  margin-top: 20px;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  &h6 {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  &p {
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.bodyText {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.resultContainer {
+  margin-top: 30px;
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #f8f8f8;
+  min-height: 100px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
+}
+
+.resultBox {
+  white-space: pre-wrap;
+}
