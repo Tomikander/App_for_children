@@ -5,14 +5,17 @@ import styles from '@/app/styles/home.module.scss';
 import { useResultsStore } from '@/app/lib/resultsStore';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Box, Typography, Button, Slider } from '@mui/material';
-import MaxNumberInput from './components/SettingsBlock/MaxNumberInput';
+import NumberInput from './components/NumberInput';
 import { useGenerateExpressions } from './lib/hooks/useGenerateExpressions';
+import { useSettingsStore } from './lib/settingsStore/settingsStore';
+import { MAX_ALLOWED_AMOUNT } from './constants/sliderlimits';
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
   const { resultsAmountToGenerate, setResultsAmountToGenerate } =
     useResultsStore();
+  const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
   const { createMathTasks } = useGenerateExpressions();
 
   const generateResults = () => {
@@ -58,7 +61,12 @@ export default function Home() {
         onChange={handleSliderChange}
         valueLabelDisplay="auto"
       />
-      <MaxNumberInput />
+      <NumberInput
+        label="Maximum Sum"
+        value={maxAdditionSum}
+        onChange={setMaxAdditionSum}
+        max={MAX_ALLOWED_AMOUNT}
+      />
       <Button
         className={styles.buttonGenerate}
         onClick={generateResults}

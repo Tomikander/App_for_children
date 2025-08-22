@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
+import { validatePositiveInteger } from '../lib/utils/validatePositiveInteger';
 
 interface NumberInputProps {
   value: number;
@@ -21,7 +22,7 @@ const NumberInput = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value.trim();
 
-    if (!/^\d*$/.test(input)) {
+    if (!validatePositiveInteger(input)) {
       setError('Only positive integers');
       return;
     }

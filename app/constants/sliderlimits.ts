@@ -1,2 +1,3 @@
 export const MAX_ALLOWED_AMOUNT = 1000;
 export const DEFAULT_MAX_ADDITION_SUM = 0;
+export const RESULTS_AMOUNT_TO_GENERATE = 100;
