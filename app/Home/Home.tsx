@@ -1,19 +1,18 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import styles from '@/styles/home.module.scss';
+import layout from '@/styles/layout.module.scss';
+import { Box } from '@mui/material';
 import { useResultsStore } from '@/lib/resultsStore';
-import { useSettingsStore } from '@/lib/settingsStore/settingsStore';
 import { generateAdditionExpressions } from '@/lib/helpers/generateExpressions';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import ClearIcon from '@mui/icons-material/Clear';
-import { Box, Typography, Button, Slider, IconButton } from '@mui/material';
+import { Header } from './Header';
+import { SliderControl } from './SliderControl';
+import { ActionButtons } from './ActionButtons';
+import { SettingsBlock } from './SettingsBlock';
+import { ResultsList } from './ResultsList';
+import { useSettingsStore } from '@/lib/settingsStore/settingsStore';
 import NumberInput from '@/components/NumberInput';
-import {
-  MAX_ALLOWED_AMOUNT,
-  SLIDER_MAX,
-  SLIDER_MIN,
-} from '@/constants/sliderlimits';
+import { MAX_ALLOWED_AMOUNT } from '@/constants/sliderlimits';
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
@@ -24,10 +23,20 @@ export default function Home() {
 
   const generateResults = () => {
     const generated = generateAdditionExpressions(
-      maxAdditionSum,
+      useSettingsStore.getState().maxAdditionSum,
       resultsAmountToGenerate
     );
     setResults(generated);
+  };
+
+  const clearResults = () => {
+    setResults([]);
+  };
+
+  const handleSliderChange = (_event: Event, value: number | number[]) => {
+    if (typeof value === 'number') {
+      setResultsAmountToGenerate(value);
+    }
   };
 
   const copyToClipboard = () => {
@@ -41,67 +50,25 @@ export default function Home() {
   };
 
   return (
-    <Box className={styles.container}>
-      <Box className={styles.header}>
-        <Typography variant="h1" className={styles.title}>
-          Home page
-        </Typography>
-      </Box>
-
-      <Typography variant="body1" sx={{ mt: 2 }}>
-        How many results to generate: {resultsAmountToGenerate}
-      </Typography>
-
-      <Slider
-        min={SLIDER_MIN}
-        max={SLIDER_MAX}
+    <Box className={layout.container}>
+      <Header onClear={clearResults} />
+      <SliderControl
         value={resultsAmountToGenerate}
-        onChange={(_, val) => {
-          if (typeof val === 'number') setResultsAmountToGenerate(val);
-        }}
-        valueLabelDisplay="auto"
+        onChange={handleSliderChange}
       />
-
-      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
-        <Button
-          className={styles.buttonGenerate}
-          onClick={generateResults}
-          sx={{
-            fontSize: { xs: '0.8rem', sm: '1rem' },
-            minWidth: { xs: '100px', sm: '120px' },
-          }}
-        >
-          Generate
-        </Button>
-
-        <Button onClick={copyToClipboard}>
-          <ContentCopyIcon />
-        </Button>
-
-        <IconButton onClick={() => setResults([])} sx={{ color: 'red' }}>
-          <ClearIcon />
-        </IconButton>
-      </Box>
-
+      <ActionButtons
+        onGenerate={generateResults}
+        onCopy={copyToClipboard}
+        onClear={clearResults}
+      />
       <NumberInput
         label="Maximum Sum"
         value={maxAdditionSum}
         onChange={setMaxAdditionSum}
         max={MAX_ALLOWED_AMOUNT}
       />
-
-      <Box className={styles.settingsBlock}>
-        <Typography variant="h6">Settings</Typography>
-        <Typography variant="body2">
-          Customizations are still in development...
-        </Typography>
-      </Box>
-
-      <Box ref={resultsRef}>
-        {results.map((text, i) => (
-          <Typography key={i}>{text}</Typography>
-        ))}
-      </Box>
+      <SettingsBlock />
+      <ResultsList results={results} resultsRef={resultsRef} />
     </Box>
   );
 }
