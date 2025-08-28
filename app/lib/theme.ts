@@ -1,15 +1,16 @@
-'use client'
+'use client';
 
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    fontFamily: "var(--font-roboto)",
+    fontFamily: 'var(--font-roboto)',
     h1: {
-      fontSize: "clamp(2rem, 5vw, 3rem)",
+      fontSize: 'clamp(2rem, 5vw, 3rem)',
+      whiteSpace: 'nowrap',
     },
     body1: {
-      fontSize: "clamp(1rem, 2.5vw, 1.2rem)",
+      fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
     },
   },
 });

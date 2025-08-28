@@ -8,7 +8,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md,json}\"",
     "dev": "next dev --turbopack",
     "prepare": "husky",
-    "lint-staged": "lint-staged",
+    "husky": "husky",
     "build": "next build",
     "start": "next start",
     "tsc": "tsc",
