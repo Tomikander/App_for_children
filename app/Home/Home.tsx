@@ -16,11 +16,11 @@ export default function Home() {
   const { resultsAmountToGenerate, setResultsAmountToGenerate } = useStore();
 
   const generateResults = () => {
-    const generated = Array.from(
+    const newResults = Array.from(
       { length: resultsAmountToGenerate },
-      (_, i) => `Results ${i + 1}`
+      (_, i) => `Results ${results.length + i + 1}`
     );
-    setResults(generated);
+    setResults((prev) => [...prev, ...newResults]);
   };
 
   const clearResults = () => {
