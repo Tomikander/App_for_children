@@ -1,10 +1,10 @@
 import { generateAdditionExpressions } from '../helpers/generateExpressions';
 import { useMaxNumber } from './useMaxNumber';
-import { useResultsAmount } from './useResultsAmount';
+import { useResultsStore } from '../resultsStore';
 
 export const useGenerateExpressions = () => {
   const { maxAdditionSum } = useMaxNumber();
-  const { resultsAmountToGenerate } = useResultsAmount();
+  const { resultsAmountToGenerate } = useResultsStore();
 
   const createMathTasks = () => {
     return generateAdditionExpressions(maxAdditionSum, resultsAmountToGenerate);
