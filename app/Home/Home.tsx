@@ -22,11 +22,12 @@ export default function Home() {
   const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
 
   const generateResults = () => {
-    const generated = generateAdditionExpressions(
-      useSettingsStore.getState().maxAdditionSum,
-      resultsAmountToGenerate
-    );
-    setResults(generated);
+const generated = generateAdditionExpressions(
+  useSettingsStore.getState().maxAdditionSum,
+  resultsAmountToGenerate
+);
+setResults((prev) => [...prev, ...generated]);
+
   };
 
   const clearResults = () => {
