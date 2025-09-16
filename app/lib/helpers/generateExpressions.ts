@@ -4,11 +4,22 @@ import { formatExpression } from '../utils/formatExpression';
 export function generateAdditionExpressions(
   maxSum: number,
   count: number,
+  minOperand: number,
   maxAttempts: number = Math.min(count * 100, 10000)
 ): string[] {
+  const maxAllowedMin = Math.floor(maxSum / 2);
+  let adjustedMin = minOperand;
+
+  if (minOperand > maxAllowedMin) {
+    console.warn(
+      `MIN=${minOperand} превышает допустимое значение. Автокоррекция до ${maxAllowedMin}`
+    );
+    adjustedMin = maxAllowedMin;
+  }
+
   const attempts = Array.from({ length: maxAttempts }, () => {
-    const a = getRandomInt(0, maxSum);
-    const b = getRandomInt(0, maxSum);
+    const a = getRandomInt(adjustedMin, maxSum - adjustedMin);
+    const b = getRandomInt(adjustedMin, maxSum - a);
     return a + b <= maxSum ? formatExpression(a, b) : null;
   });
 

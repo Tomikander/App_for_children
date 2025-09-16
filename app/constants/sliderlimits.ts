@@ -4,3 +4,4 @@ export const RESULTS_AMOUNT_TO_GENERATE = 100;
 export const SLIDER_MIN = 1;
 export const SLIDER_MAX = 500;
 export const DEFAULT_RESULTS_AMOUNT = 100;
+export const MIN_OPERAND = 100;
