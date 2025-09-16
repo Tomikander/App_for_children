@@ -17,17 +17,24 @@ import { MAX_ALLOWED_AMOUNT } from '@/constants/sliderlimits';
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
   const resultsRef = useRef<HTMLDivElement>(null);
+
   const { resultsAmountToGenerate, setResultsAmountToGenerate } =
     useResultsStore();
-  const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
+
+  const {
+    maxAdditionSum,
+    setMaxAdditionSum,
+    minAdditionOperand,
+    setMinAdditionOperand,
+  } = useSettingsStore();
 
   const generateResults = () => {
-const generated = generateAdditionExpressions(
-  useSettingsStore.getState().maxAdditionSum,
-  resultsAmountToGenerate
-);
-setResults((prev) => [...prev, ...generated]);
-
+    const generated = generateAdditionExpressions(
+      maxAdditionSum,
+      resultsAmountToGenerate,
+      minAdditionOperand
+    );
+    setResults((prev) => [...prev, ...generated]);
   };
 
   const clearResults = () => {
@@ -62,12 +69,20 @@ setResults((prev) => [...prev, ...generated]);
         onCopy={copyToClipboard}
         onClear={clearResults}
       />
-      <NumberInput
-        label="Maximum Sum"
-        value={maxAdditionSum}
-        onChange={setMaxAdditionSum}
-        max={MAX_ALLOWED_AMOUNT}
-      />
+      <Box display="flex" gap={2} mb={2}>
+        <NumberInput
+          label="Maximum Sum"
+          value={maxAdditionSum}
+          onChange={setMaxAdditionSum}
+          max={MAX_ALLOWED_AMOUNT}
+        />
+        <NumberInput
+          label="Minimum Operand"
+          value={minAdditionOperand}
+          onChange={setMinAdditionOperand}
+          max={Math.floor(maxAdditionSum / 2)}
+        />
+      </Box>
       <SettingsBlock />
       <ResultsList results={results} resultsRef={resultsRef} />
     </Box>
