@@ -1,15 +1,16 @@
 .button {
   font-size: 1rem;
-  min-width: 120px;
-  border: 1px solid;
-  cursor: pointer;
-  padding: 10px 20px;
+  min-width: 80px;
+  flex-shrink: 1;
+  flex-grow: 0;
+  flex-basis: auto;
+  padding: 10px 16px;
   border-radius: 6px;
   white-space: nowrap;
 
   @media (max-width: 600px) {
     font-size: 0.8rem;
-    min-width: 100px;
+    padding: 8px 12px;
   }
 
   &--clear {
@@ -73,6 +74,7 @@
 .buttonContainer {
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 16px;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  overflow-x: auto;
 }

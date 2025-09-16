@@ -8,11 +8,12 @@ import { generateAdditionExpressions } from '@/lib/helpers/generateExpressions';
 import { Header } from './Header';
 import { SliderControl } from './SliderControl';
 import { ActionButtons } from './ActionButtons';
-import { SettingsBlock } from './SettingsBlock';
 import { ResultsList } from './ResultsList';
 import { useSettingsStore } from '@/lib/settingsStore/settingsStore';
 import NumberInput from '@/components/NumberInput';
 import { MAX_ALLOWED_AMOUNT } from '@/constants/sliderlimits';
+import ResultBox from '@/components/ResultBox';
+import MySelect from '@/components/mySelectComponent';
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
@@ -22,12 +23,11 @@ export default function Home() {
   const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
 
   const generateResults = () => {
-const generated = generateAdditionExpressions(
-  useSettingsStore.getState().maxAdditionSum,
-  resultsAmountToGenerate
-);
-setResults((prev) => [...prev, ...generated]);
-
+    const generated = generateAdditionExpressions(
+      useSettingsStore.getState().maxAdditionSum,
+      resultsAmountToGenerate
+    );
+    setResults((prev) => [...prev, ...generated]);
   };
 
   const clearResults = () => {
@@ -53,14 +53,10 @@ setResults((prev) => [...prev, ...generated]);
   return (
     <Box className={layout.container}>
       <Header onClear={clearResults} />
+      <MySelect />
       <SliderControl
         value={resultsAmountToGenerate}
         onChange={handleSliderChange}
-      />
-      <ActionButtons
-        onGenerate={generateResults}
-        onCopy={copyToClipboard}
-        onClear={clearResults}
       />
       <NumberInput
         label="Maximum Sum"
@@ -68,8 +64,14 @@ setResults((prev) => [...prev, ...generated]);
         onChange={setMaxAdditionSum}
         max={MAX_ALLOWED_AMOUNT}
       />
-      <SettingsBlock />
-      <ResultsList results={results} resultsRef={resultsRef} />
+      <ActionButtons
+        onGenerate={generateResults}
+        onCopy={copyToClipboard}
+        onClear={clearResults}
+      />
+      <ResultBox>
+        <ResultsList results={results} resultsRef={resultsRef} />
+      </ResultBox>
     </Box>
   );
 }
