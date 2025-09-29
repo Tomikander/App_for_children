@@ -13,21 +13,31 @@ import { ResultsList } from './ResultsList';
 import { useSettingsStore } from '@/lib/settingsStore/settingsStore';
 import NumberInput from '@/components/NumberInput';
 import { MAX_ALLOWED_AMOUNT } from '@/constants/sliderlimits';
+import { OperationSelector } from '@/components/OperationSelector';
+import { OperationType } from '@/constants/operationOptions';
 
 export default function Home() {
   const [results, setResults] = useState<string[]>([]);
+  const [selectedOperation, setSelectedOperation] =
+    useState<OperationType>('addition');
   const resultsRef = useRef<HTMLDivElement>(null);
+
   const { resultsAmountToGenerate, setResultsAmountToGenerate } =
     useResultsStore();
-  const { maxAdditionSum, setMaxAdditionSum } = useSettingsStore();
+  const {
+    maxAdditionSum,
+    setMaxAdditionSum,
+    minAdditionOperand,
+    setMinAdditionOperand,
+  } = useSettingsStore();
 
   const generateResults = () => {
-const generated = generateAdditionExpressions(
-  useSettingsStore.getState().maxAdditionSum,
-  resultsAmountToGenerate
-);
-setResults((prev) => [...prev, ...generated]);
-
+    const generated = generateAdditionExpressions(
+      maxAdditionSum,
+      resultsAmountToGenerate,
+      minAdditionOperand
+    );
+    setResults((prev) => [...prev, ...generated]);
   };
 
   const clearResults = () => {
@@ -53,23 +63,40 @@ setResults((prev) => [...prev, ...generated]);
   return (
     <Box className={layout.container}>
       <Header onClear={clearResults} />
-      <SliderControl
-        value={resultsAmountToGenerate}
-        onChange={handleSliderChange}
+      <OperationSelector
+        selected={selectedOperation}
+        onChange={setSelectedOperation}
       />
-      <ActionButtons
-        onGenerate={generateResults}
-        onCopy={copyToClipboard}
-        onClear={clearResults}
-      />
-      <NumberInput
-        label="Maximum Sum"
-        value={maxAdditionSum}
-        onChange={setMaxAdditionSum}
-        max={MAX_ALLOWED_AMOUNT}
-      />
-      <SettingsBlock />
-      <ResultsList results={results} resultsRef={resultsRef} />
+
+      {selectedOperation === 'addition' && (
+        <>
+          <SliderControl
+            value={resultsAmountToGenerate}
+            onChange={handleSliderChange}
+          />
+          <ActionButtons
+            onGenerate={generateResults}
+            onCopy={copyToClipboard}
+            onClear={clearResults}
+          />
+          <Box display="flex" gap={2} mb={2}>
+            <NumberInput
+              label="Maximum Sum"
+              value={maxAdditionSum}
+              onChange={setMaxAdditionSum}
+              max={MAX_ALLOWED_AMOUNT}
+            />
+            <NumberInput
+              label="Minimum Operand"
+              value={minAdditionOperand}
+              onChange={setMinAdditionOperand}
+              max={Math.floor(maxAdditionSum / 2)}
+            />
+          </Box>
+          <SettingsBlock />
+          <ResultsList results={results} resultsRef={resultsRef} />
+        </>
+      )}
     </Box>
   );
 }
